@@ -64,7 +64,7 @@ export function OrderDetailsModal({ orderId, onClose, onChanged }: Props) {
               <tr>
                 <th>Product</th>
                 <th className="text-right">Qty</th>
-                <th className="text-right">Unit price</th>
+                <th className="text-right hide-sm">Unit price</th>
                 <th className="text-right">Subtotal</th>
               </tr>
             </thead>
@@ -76,8 +76,8 @@ export function OrderDetailsModal({ orderId, onClose, onChanged }: Props) {
                     <p className="muted small">{item.sku}</p>
                   </td>
                   <td className="text-right">{item.quantity}</td>
-                  <td className="text-right">{formatMoney(item.unitPrice)}</td>
-                  <td className="text-right">{formatMoney(item.subtotal)}</td>
+                  <td className="text-right hide-sm">{formatMoney(item.unitPrice)}</td>
+                  <td className="text-right nowrap">{formatMoney(item.subtotal)}</td>
                 </tr>
               ))}
             </tbody>

@@ -46,8 +46,8 @@ export function PrivilegesPage() {
                 <tr>
                   <th>Privilege</th>
                   <th>Module</th>
-                  <th>Description</th>
-                  <th>Used by</th>
+                  <th className="hide-sm">Description</th>
+                  <th className="hide-sm">Used by</th>
                   {canManage && <th />}
                 </tr>
               </thead>
@@ -58,8 +58,8 @@ export function PrivilegesPage() {
                       <code>{privilege.name}</code>
                     </td>
                     <td>{privilege.module}</td>
-                    <td className="muted">{privilege.description}</td>
-                    <td className="muted">
+                    <td className="muted hide-sm">{privilege.description}</td>
+                    <td className="muted hide-sm">
                       {privilege.roleCount} role{privilege.roleCount === 1 ? '' : 's'}
                     </td>
                     {canManage && (

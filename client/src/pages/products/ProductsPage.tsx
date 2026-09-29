@@ -74,9 +74,9 @@ export function ProductsPage() {
               <thead>
                 <tr>
                   <th>Product</th>
-                  <th>Category</th>
+                  <th className="hide-sm">Category</th>
                   <th className="text-right">Price</th>
-                  <th className="text-right">Cost</th>
+                  <th className="text-right hide-sm">Cost</th>
                   <th className="text-right">In stock</th>
                   <th>Status</th>
                   {canManage && <th />}
@@ -89,9 +89,9 @@ export function ProductsPage() {
                       <p className="strong">{product.name}</p>
                       <p className="muted small">{product.sku}</p>
                     </td>
-                    <td>{product.categoryName ?? <span className="muted">—</span>}</td>
-                    <td className="text-right">{formatMoney(product.price)}</td>
-                    <td className="text-right muted">{formatMoney(product.cost)}</td>
+                    <td className="hide-sm">{product.categoryName ?? <span className="muted">—</span>}</td>
+                    <td className="text-right nowrap">{formatMoney(product.price)}</td>
+                    <td className="text-right muted hide-sm">{formatMoney(product.cost)}</td>
                     <td className="text-right strong">{product.quantity}</td>
                     <td>
                       {product.isActive ? (

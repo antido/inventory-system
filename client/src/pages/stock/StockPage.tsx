@@ -69,7 +69,7 @@ export function StockPage() {
                   <tr>
                     <th>Product</th>
                     <th className="text-right">On hand</th>
-                    <th className="text-right">Reorder at</th>
+                    <th className="text-right hide-sm">Reorder at</th>
                     <th>Status</th>
                     {canManage && <th />}
                   </tr>
@@ -82,7 +82,7 @@ export function StockPage() {
                         <p className="muted small">{product.sku}</p>
                       </td>
                       <td className="text-right strong">{product.quantity}</td>
-                      <td className="text-right muted">{product.reorderLevel}</td>
+                      <td className="text-right muted hide-sm">{product.reorderLevel}</td>
                       <td>
                         <StockBadge quantity={product.quantity} reorderLevel={product.reorderLevel} />
                       </td>
@@ -114,9 +114,9 @@ export function StockPage() {
                     <th>Product</th>
                     <th>Type</th>
                     <th className="text-right">Change</th>
-                    <th className="text-right">Balance</th>
-                    <th>Note</th>
-                    <th>By</th>
+                    <th className="text-right hide-sm">Balance</th>
+                    <th className="hide-sm">Note</th>
+                    <th className="hide-sm">By</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -134,9 +134,9 @@ export function StockPage() {
                         {movement.quantityChange > 0 ? '+' : ''}
                         {movement.quantityChange}
                       </td>
-                      <td className="text-right">{movement.quantityAfter}</td>
-                      <td className="muted">{movement.note}</td>
-                      <td className="muted small">{movement.userName ?? '—'}</td>
+                      <td className="text-right hide-sm">{movement.quantityAfter}</td>
+                      <td className="muted hide-sm">{movement.note}</td>
+                      <td className="muted small hide-sm">{movement.userName ?? '—'}</td>
                     </tr>
                   ))}
                 </tbody>
