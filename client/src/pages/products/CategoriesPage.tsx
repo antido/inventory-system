@@ -45,7 +45,7 @@ export function CategoriesPage() {
               <thead>
                 <tr>
                   <th>Name</th>
-                  <th>Description</th>
+                  <th className="hide-sm">Description</th>
                   <th className="text-right">Products</th>
                   {canManage && <th />}
                 </tr>
@@ -54,7 +54,7 @@ export function CategoriesPage() {
                 {categories.map((category) => (
                   <tr key={category.id}>
                     <td className="strong">{category.name}</td>
-                    <td className="muted">{category.description}</td>
+                    <td className="muted hide-sm">{category.description}</td>
                     <td className="text-right">{category.productCount}</td>
                     {canManage && (
                       <td className="row-actions">

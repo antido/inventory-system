@@ -56,26 +56,30 @@ export function OrdersPage() {
               <thead>
                 <tr>
                   <th>Order</th>
-                  <th>Customer</th>
-                  <th>Date</th>
-                  <th className="text-right">Items</th>
+                  <th className="hide-sm">Customer</th>
+                  <th className="hide-sm">Date</th>
+                  <th className="text-right hide-sm">Items</th>
                   <th className="text-right">Total</th>
                   <th>Status</th>
-                  <th />
+                  <th className="hide-sm" />
                 </tr>
               </thead>
               <tbody>
                 {orders.map((order) => (
                   <tr key={order.id} className="clickable" onClick={() => setViewingId(order.id)}>
-                    <td className="strong">{order.orderNumber}</td>
-                    <td>{order.customerName}</td>
-                    <td className="muted small nowrap">{formatDateTime(order.createdAt)}</td>
-                    <td className="text-right">{order.itemCount}</td>
-                    <td className="text-right strong">{formatMoney(order.total)}</td>
+                    <td>
+                      <p className="strong nowrap">{order.orderNumber}</p>
+                      {/* On phones the customer column is hidden, so show it here instead */}
+                      <p className="muted small show-sm">{order.customerName}</p>
+                    </td>
+                    <td className="hide-sm">{order.customerName}</td>
+                    <td className="muted small nowrap hide-sm">{formatDateTime(order.createdAt)}</td>
+                    <td className="text-right hide-sm">{order.itemCount}</td>
+                    <td className="text-right strong nowrap">{formatMoney(order.total)}</td>
                     <td>
                       <OrderStatusBadge status={order.status} />
                     </td>
-                    <td className="row-actions">
+                    <td className="row-actions hide-sm">
                       <button className="icon-button" title="View">
                         <Eye size={16} />
                       </button>
