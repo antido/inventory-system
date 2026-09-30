@@ -57,7 +57,7 @@ export function DashboardPage() {
                           <p className="strong nowrap">{order.orderNumber}</p>
                           <p className="muted small">{order.customerName}</p>
                         </td>
-                        <td className="muted small hide-sm">{formatDateTime(order.createdAt)}</td>
+                        <td className="muted small nowrap hide-sm">{formatDateTime(order.createdAt)}</td>
                         <td>
                           <OrderStatusBadge status={order.status} />
                         </td>

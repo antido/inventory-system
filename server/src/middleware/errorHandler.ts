@@ -16,6 +16,11 @@ export function errorHandler(err: any, _req: Request, res: Response, _next: Next
     return res.status(409).json({ message: 'This record is in use and cannot be deleted' });
   }
 
+  // Request body bigger than the limit in app.ts (e.g. a huge photo)
+  if (err?.type === 'entity.too.large') {
+    return res.status(413).json({ message: 'The upload is too large' });
+  }
+
   console.error(err);
   res.status(500).json({ message: 'Something went wrong on the server' });
 }

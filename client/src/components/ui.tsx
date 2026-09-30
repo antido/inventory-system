@@ -1,6 +1,6 @@
 // Small reusable UI pieces used by many pages.
-import { X } from 'lucide-react';
-import { FormEvent, ReactNode } from 'react';
+import { ImageOff, X } from 'lucide-react';
+import { FormEvent, ReactNode, useState } from 'react';
 import { OrderStatus } from '../types';
 
 /** Title + optional description and action buttons at the top of a page. */
@@ -130,4 +130,25 @@ export function LoadState({ loading, error, empty }: { loading: boolean; error: 
   if (error) return <div className="alert alert-error">{error}</div>;
   if (empty) return <p className="state-message">Nothing here yet.</p>;
   return null;
+}
+
+/**
+ * A photo, or a grey "No Image" box when there is none (or it fails to load).
+ * Size it with a class, e.g. <ImageBox url={product.imageUrl} alt={product.name} className="image-box-large" />
+ */
+export function ImageBox({ url, alt, className = '' }: { url: string | null; alt: string; className?: string }) {
+  const [failed, setFailed] = useState(false);
+
+  return (
+    <div className={`image-box ${className}`}>
+      {url && !failed ? (
+        <img src={url} alt={alt} onError={() => setFailed(true)} />
+      ) : (
+        <div className="image-placeholder" role="img" aria-label="No Image">
+          <ImageOff size={28} />
+          <span>No Image</span>
+        </div>
+      )}
+    </div>
+  );
 }

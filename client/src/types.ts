@@ -56,6 +56,8 @@ export interface Product {
   isActive: boolean;
   categoryId: number | null;
   categoryName: string | null;
+  /** e.g. '/uploads/products/3f2c....webp', or null when there is no photo */
+  imageUrl: string | null;
 }
 
 export type MovementType = 'in' | 'out' | 'adjustment' | 'sale' | 'return';

@@ -1,3 +1,6 @@
 node_modules
 dist
 .env
+
+# Uploaded product photos
+server/uploads/

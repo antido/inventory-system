@@ -88,8 +88,13 @@ export function StockPage() {
                       </td>
                       {canManage && (
                         <td className="row-actions">
-                          <button className="btn btn-secondary btn-small" onClick={() => setAdjusting({ product, type: 'adjustment' })}>
-                            <SlidersHorizontal size={14} /> Adjust
+                          <button
+                            className="btn btn-secondary btn-small"
+                            onClick={() => setAdjusting({ product, type: 'adjustment' })}
+                            title="Adjust stock"
+                            aria-label={`Adjust stock of ${product.name}`}
+                          >
+                            <SlidersHorizontal size={14} /> <span className="hide-sm">Adjust</span>
                           </button>
                         </td>
                       )}
@@ -110,7 +115,7 @@ export function StockPage() {
               <table className="table">
                 <thead>
                   <tr>
-                    <th>Date</th>
+                    <th className="hide-sm">Date</th>
                     <th>Product</th>
                     <th>Type</th>
                     <th className="text-right">Change</th>
@@ -122,10 +127,11 @@ export function StockPage() {
                 <tbody>
                   {movements.data.map((movement) => (
                     <tr key={movement.id}>
-                      <td className="muted small nowrap">{formatDateTime(movement.createdAt)}</td>
+                      <td className="muted small nowrap hide-sm">{formatDateTime(movement.createdAt)}</td>
                       <td>
                         <p className="strong">{movement.productName}</p>
                         <p className="muted small">{movement.sku}</p>
+                        <p className="muted small show-sm">{formatDateTime(movement.createdAt)}</p>
                       </td>
                       <td>
                         <Badge color={MOVEMENT_LABELS[movement.type].color}>{MOVEMENT_LABELS[movement.type].label}</Badge>
