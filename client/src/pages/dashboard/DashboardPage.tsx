@@ -48,23 +48,25 @@ export function DashboardPage() {
                   View all
                 </Link>
               </div>
-              <table className="table">
-                <tbody>
-                  {data.recentOrders.map((order) => (
-                    <tr key={order.id}>
-                      <td>
-                        <p className="strong">{order.orderNumber}</p>
-                        <p className="muted small">{order.customerName}</p>
-                      </td>
-                      <td className="muted small">{formatDateTime(order.createdAt)}</td>
-                      <td>
-                        <OrderStatusBadge status={order.status} />
-                      </td>
-                      <td className="text-right strong">{formatMoney(order.total)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <div className="table-scroll">
+                <table className="table">
+                  <tbody>
+                    {data.recentOrders.map((order) => (
+                      <tr key={order.id}>
+                        <td>
+                          <p className="strong nowrap">{order.orderNumber}</p>
+                          <p className="muted small">{order.customerName}</p>
+                        </td>
+                        <td className="muted small nowrap hide-sm">{formatDateTime(order.createdAt)}</td>
+                        <td>
+                          <OrderStatusBadge status={order.status} />
+                        </td>
+                        <td className="text-right strong nowrap">{formatMoney(order.total)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
               {data.recentOrders.length === 0 && <p className="state-message">No orders yet.</p>}
             </div>
 
@@ -75,24 +77,26 @@ export function DashboardPage() {
                   Manage stock
                 </Link>
               </div>
-              <table className="table">
-                <tbody>
-                  {data.lowStock.map((product) => (
-                    <tr key={product.id}>
-                      <td>
-                        <p className="strong">{product.name}</p>
-                        <p className="muted small">{product.sku}</p>
-                      </td>
-                      <td className="small muted">
-                        {product.quantity} / {product.reorderLevel}
-                      </td>
-                      <td className="text-right">
-                        <StockBadge quantity={product.quantity} reorderLevel={product.reorderLevel} />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <div className="table-scroll">
+                <table className="table">
+                  <tbody>
+                    {data.lowStock.map((product) => (
+                      <tr key={product.id}>
+                        <td>
+                          <p className="strong">{product.name}</p>
+                          <p className="muted small">{product.sku}</p>
+                        </td>
+                        <td className="small muted nowrap">
+                          {product.quantity} / {product.reorderLevel}
+                        </td>
+                        <td className="text-right">
+                          <StockBadge quantity={product.quantity} reorderLevel={product.reorderLevel} />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
               {data.lowStock.length === 0 && <p className="state-message">All products are well stocked. 🎉</p>}
             </div>
           </div>

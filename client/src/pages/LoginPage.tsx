@@ -1,6 +1,7 @@
 import { Boxes } from 'lucide-react';
 import { FormEvent, useState } from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { ThemeToggle } from '../components/ThemeToggle';
 import { useAuth } from '../context/AuthContext';
 
 const DEMO_ACCOUNTS = [
@@ -38,9 +39,14 @@ export function LoginPage() {
 
   return (
     <div className="login-page">
+      <div className="login-theme">
+        <ThemeToggle />
+      </div>
       <form className="login-card" onSubmit={handleSubmit}>
         <div className="login-brand">
-          <Boxes size={28} />
+          <span className="brand-mark">
+            <Boxes size={18} />
+          </span>
           <span>StockFlow</span>
         </div>
         <h1>Welcome back</h1>

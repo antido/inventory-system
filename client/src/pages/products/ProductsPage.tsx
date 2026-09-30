@@ -1,4 +1,4 @@
-import { Pencil, Plus, Search, Trash2 } from 'lucide-react';
+import { Eye, Pencil, Plus, Search, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { api } from '../../api/client';
 import { Badge, LoadState, PageHeader, StockBadge } from '../../components/ui';
@@ -6,6 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useFetch } from '../../hooks/useFetch';
 import { Category, Product } from '../../types';
 import { formatMoney } from '../../utils/format';
+import { ProductDetailsModal } from './ProductDetailsModal';
 import { ProductFormModal } from './ProductFormModal';
 
 export function ProductsPage() {
@@ -21,6 +22,7 @@ export function ProductsPage() {
   const { data: products, loading, error, reload } = useFetch<Product[]>(`/products?${params}`);
   const { data: categories } = useFetch<Category[]>('/categories');
   const [editing, setEditing] = useState<Product | 'new' | null>(null);
+  const [viewing, setViewing] = useState<Product | null>(null);
 
   async function handleDelete(product: Product) {
     if (!confirm(`Delete "${product.name}"?`)) return;
@@ -74,42 +76,50 @@ export function ProductsPage() {
               <thead>
                 <tr>
                   <th>Product</th>
-                  <th>Category</th>
+                  <th className="hide-sm">Category</th>
                   <th className="text-right">Price</th>
-                  <th className="text-right">Cost</th>
+                  <th className="text-right hide-sm">Cost</th>
                   <th className="text-right">In stock</th>
-                  <th>Status</th>
-                  {canManage && <th />}
+                  <th className="hide-sm">Status</th>
+                  <th />
                 </tr>
               </thead>
               <tbody>
                 {products.map((product) => (
                   <tr key={product.id} className={product.isActive ? '' : 'row-inactive'}>
                     <td>
-                      <p className="strong">{product.name}</p>
-                      <p className="muted small">{product.sku}</p>
+                      <button type="button" className="link-button" onClick={() => setViewing(product)}>
+                        <span className="strong">{product.name}</span>
+                        <span className="muted small">{product.sku}</span>
+                      </button>
                     </td>
-                    <td>{product.categoryName ?? <span className="muted">—</span>}</td>
-                    <td className="text-right">{formatMoney(product.price)}</td>
-                    <td className="text-right muted">{formatMoney(product.cost)}</td>
+                    <td className="hide-sm">{product.categoryName ?? <span className="muted">—</span>}</td>
+                    <td className="text-right nowrap">{formatMoney(product.price)}</td>
+                    <td className="text-right muted hide-sm">{formatMoney(product.cost)}</td>
                     <td className="text-right strong">{product.quantity}</td>
-                    <td>
+                    <td className="hide-sm">
                       {product.isActive ? (
                         <StockBadge quantity={product.quantity} reorderLevel={product.reorderLevel} />
                       ) : (
                         <Badge color="gray">Inactive</Badge>
                       )}
                     </td>
-                    {canManage && (
-                      <td className="row-actions">
-                        <button className="icon-button" onClick={() => setEditing(product)} title="Edit">
-                          <Pencil size={16} />
-                        </button>
-                        <button className="icon-button danger" onClick={() => handleDelete(product)} title="Delete">
-                          <Trash2 size={16} />
-                        </button>
-                      </td>
-                    )}
+                    <td className="row-actions">
+                      {/* Hidden on phones: tapping the product name opens the same view */}
+                      <button className="icon-button hide-sm" onClick={() => setViewing(product)} title="View">
+                        <Eye size={16} />
+                      </button>
+                      {canManage && (
+                        <>
+                          <button className="icon-button" onClick={() => setEditing(product)} title="Edit">
+                            <Pencil size={16} />
+                          </button>
+                          <button className="icon-button danger" onClick={() => handleDelete(product)} title="Delete">
+                            <Trash2 size={16} />
+                          </button>
+                        </>
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -117,6 +127,18 @@ export function ProductsPage() {
           </div>
         )}
       </div>
+
+      {viewing && (
+        <ProductDetailsModal
+          product={viewing}
+          canEdit={canManage}
+          onClose={() => setViewing(null)}
+          onEdit={() => {
+            setEditing(viewing);
+            setViewing(null);
+          }}
+        />
+      )}
 
       {editing && (
         <ProductFormModal

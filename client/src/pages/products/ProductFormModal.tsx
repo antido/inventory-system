@@ -1,4 +1,5 @@
 import { api } from '../../api/client';
+import { ImagePicker } from '../../components/ImagePicker';
 import { Field, Modal } from '../../components/ui';
 import { useForm } from '../../hooks/useForm';
 import { Category, Product } from '../../types';
@@ -21,6 +22,8 @@ export function ProductFormModal({ product, categories, onClose, onSaved }: Prop
     reorderLevel: product ? String(product.reorderLevel) : '10',
     initialQuantity: '0',
     isActive: product?.isActive ?? true,
+    image: null as string | null, // a newly picked photo (data URL), sent to the API
+    removeImage: false, // true = delete the saved photo
   });
 
   async function handleSubmit() {
@@ -30,6 +33,17 @@ export function ProductFormModal({ product, categories, onClose, onSaved }: Prop
 
   return (
     <Modal title={product ? 'Edit product' : 'Add product'} onClose={onClose} onSubmit={handleSubmit} saving={saving} error={error} wide>
+      <ImagePicker
+        savedUrl={product?.imageUrl ?? null}
+        newImage={values.image}
+        removed={values.removeImage}
+        onPick={(dataUrl) => setValue('image', dataUrl)}
+        onRemove={() => {
+          setValue('image', null);
+          setValue('removeImage', true);
+        }}
+      />
+
       <div className="form-row">
         <Field label="Product name">
           <input value={values.name} onChange={(e) => setValue('name', e.target.value)} required />

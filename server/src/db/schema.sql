@@ -86,6 +86,9 @@ CREATE TABLE products (
   quantity      INT            NOT NULL DEFAULT 0,
   reorder_level INT            NOT NULL DEFAULT 10,
   is_active     TINYINT(1)     NOT NULL DEFAULT 1,
+  -- Optional photo, e.g. 'products/3f2c....webp' inside server/uploads/.
+  -- Set by the server (services/productImages.ts), never taken from the browser.
+  image_path    VARCHAR(255)   NULL,
   created_at    DATETIME       NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at    DATETIME       NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL

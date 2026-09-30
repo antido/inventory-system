@@ -59,29 +59,31 @@ export function OrderDetailsModal({ orderId, onClose, onChanged }: Props) {
 
           {order.note && <p className="muted">Note: {order.note}</p>}
 
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Product</th>
-                <th className="text-right">Qty</th>
-                <th className="text-right">Unit price</th>
-                <th className="text-right">Subtotal</th>
-              </tr>
-            </thead>
-            <tbody>
-              {order.items.map((item) => (
-                <tr key={item.id}>
-                  <td>
-                    <p className="strong">{item.productName}</p>
-                    <p className="muted small">{item.sku}</p>
-                  </td>
-                  <td className="text-right">{item.quantity}</td>
-                  <td className="text-right">{formatMoney(item.unitPrice)}</td>
-                  <td className="text-right">{formatMoney(item.subtotal)}</td>
+          <div className="table-scroll">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th className="text-right">Qty</th>
+                  <th className="text-right hide-sm">Unit price</th>
+                  <th className="text-right">Subtotal</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {order.items.map((item) => (
+                  <tr key={item.id}>
+                    <td>
+                      <p className="strong">{item.productName}</p>
+                      <p className="muted small">{item.sku}</p>
+                    </td>
+                    <td className="text-right">{item.quantity}</td>
+                    <td className="text-right hide-sm">{formatMoney(item.unitPrice)}</td>
+                    <td className="text-right nowrap">{formatMoney(item.subtotal)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
           <div className="order-total">
             <span>Total</span>

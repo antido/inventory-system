@@ -49,8 +49,8 @@ export function UsersPage() {
                 <tr>
                   <th>Name</th>
                   <th>Role</th>
-                  <th>Status</th>
-                  <th>Joined</th>
+                  <th className="hide-sm">Status</th>
+                  <th className="hide-sm">Joined</th>
                   {canManage && <th />}
                 </tr>
               </thead>
@@ -69,8 +69,8 @@ export function UsersPage() {
                     <td>
                       <Badge color="blue">{user.roleName}</Badge>
                     </td>
-                    <td>{user.isActive ? <Badge color="green">Active</Badge> : <Badge color="gray">Disabled</Badge>}</td>
-                    <td className="muted">{formatDate(user.createdAt)}</td>
+                    <td className="hide-sm">{user.isActive ? <Badge color="green">Active</Badge> : <Badge color="gray">Disabled</Badge>}</td>
+                    <td className="muted hide-sm">{formatDate(user.createdAt)}</td>
                     {canManage && (
                       <td className="row-actions">
                         <button className="icon-button" onClick={() => setEditing(user)} title="Edit">

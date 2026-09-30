@@ -91,29 +91,31 @@ export function ReportsPage() {
               <div className="card-header">
                 <h2>Top products</h2>
               </div>
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Product</th>
-                    <th className="text-right">Units</th>
-                    <th className="text-right">Revenue</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.topProducts.map((product, index) => (
-                    <tr key={product.id}>
-                      <td className="muted">{index + 1}</td>
-                      <td>
-                        <p className="strong">{product.name}</p>
-                        <p className="muted small">{product.sku}</p>
-                      </td>
-                      <td className="text-right">{formatNumber(product.quantitySold)}</td>
-                      <td className="text-right strong">{formatMoney(product.revenue)}</td>
+              <div className="table-scroll">
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th className="hide-sm">#</th>
+                      <th>Product</th>
+                      <th className="text-right">Units</th>
+                      <th className="text-right">Revenue</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {data.topProducts.map((product, index) => (
+                      <tr key={product.id}>
+                        <td className="muted hide-sm">{index + 1}</td>
+                        <td>
+                          <p className="strong">{product.name}</p>
+                          <p className="muted small">{product.sku}</p>
+                        </td>
+                        <td className="text-right">{formatNumber(product.quantitySold)}</td>
+                        <td className="text-right strong nowrap">{formatMoney(product.revenue)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
               {data.topProducts.length === 0 && <p className="state-message">No sales in this period.</p>}
             </div>
 
@@ -121,26 +123,28 @@ export function ReportsPage() {
               <div className="card-header">
                 <h2>Inventory value (today)</h2>
               </div>
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>Category</th>
-                    <th className="text-right">Units</th>
-                    <th className="text-right">At cost</th>
-                    <th className="text-right">At retail</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.inventoryByCategory.map((row) => (
-                    <tr key={row.category}>
-                      <td className="strong">{row.category}</td>
-                      <td className="text-right">{formatNumber(row.units)}</td>
-                      <td className="text-right">{formatMoney(row.costValue)}</td>
-                      <td className="text-right muted">{formatMoney(row.retailValue)}</td>
+              <div className="table-scroll">
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th>Category</th>
+                      <th className="text-right">Units</th>
+                      <th className="text-right">At cost</th>
+                      <th className="text-right hide-sm">At retail</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {data.inventoryByCategory.map((row) => (
+                      <tr key={row.category}>
+                        <td className="strong">{row.category}</td>
+                        <td className="text-right">{formatNumber(row.units)}</td>
+                        <td className="text-right nowrap">{formatMoney(row.costValue)}</td>
+                        <td className="text-right muted nowrap hide-sm">{formatMoney(row.retailValue)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </>
